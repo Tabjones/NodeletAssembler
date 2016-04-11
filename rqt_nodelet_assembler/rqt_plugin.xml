@@ -1,0 +1,19 @@
+<library path="lib/librqt_nodelet_assembler">
+    <class name="rqt_nodelet_assembler/NodeletAssembler" type="rqt_nodelet_assembler::NodeletAssembler" base_class_type="rqt_gui_cpp::Plugin">
+    <description>
+      A C++ GUI plugin for assembling your custom nodelet and save it to a launch file.
+    </description>
+    <qtgui>
+      <group>
+        <label>Configuration</label>
+        <icon type="theme">folder</icon>
+        <statustip>Plugins related to configuration.</statustip>
+      </group>
+      <label>Nodelet Assembler</label>
+      <icon type="theme">text-x-generic</icon>
+      <statustip>
+          A C++ GUI plugin for assembling your custom nodelet and save it to a launch file.
+      </statustip>
+    </qtgui>
+  </class>
+</library>

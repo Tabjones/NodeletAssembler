@@ -72,6 +72,9 @@ include_directories(
 #   ${catkin_LIBRARIES}
 # )
 
+find_package(class_loader)
+class_loader_hide_library_symbols(${PROJECT_NAME})
+
 #############
 ## Install ##
 #############

@@ -55,13 +55,12 @@ namespace rqt_nodelet_assembler
         }
         context.addWidget(widget_);
         //update packages and nodelets
-        //TODO
+        updatePluginList();
     }
 
     void
     NodeletAssembler::shutdownPlugin()
     {
-        delete widget_;
     }
 
     void
@@ -76,22 +75,24 @@ namespace rqt_nodelet_assembler
         //TODO
     }
 
-    QSet<QString>
-    NodeletAssembler::getPackages() const
-    {
-        //TODO
-    }
-
-    QSet<QString>
-    NodeletAssembler::getNodelets() const
+    QStringList
+    NodeletAssembler::getNodeletsFromPlugin() const
     {
         //TODO
     }
 
     void
-    NodeletAssembler::updatePackagesList()
+    NodeletAssembler::updatePluginList()
     {
-        //TODO
+        ui_.plugin_combo_box->clear();
+        std::string n("nodelet");
+        std::string p("plugin");
+        ros::package::V_string vp;
+        ros::package::getPlugins (n, p, vp, true);
+        QStringList plist;
+        for (size_t i=0; i<vp.size(); ++i)
+            plist.append(vp[i].c_str());
+        ui_.plugin_combo_box->insertItems(0, plist);
     }
 
     void

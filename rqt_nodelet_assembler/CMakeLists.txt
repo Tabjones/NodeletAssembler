@@ -9,6 +9,7 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rqt_gui
   rqt_gui_cpp
+  roslib
 )
 
 ## System dependencies are found with CMake's conventions
@@ -46,7 +47,7 @@ set(rqt_nodelet_assembler_UI
 catkin_package(
     INCLUDE_DIRS ${rqt_nodelet_assembler_INCLUDE_DIRECTORIES}
     LIBRARIES ${PROJECT_NAME}
-    CATKIN_DEPENDS pluginlib roscpp rqt_gui rqt_gui_cpp
+    CATKIN_DEPENDS pluginlib roscpp rqt_gui rqt_gui_cpp roslib
 #  DEPENDS system_lib
 )
 

@@ -34,10 +34,14 @@
 #define _INCL_RQT_NODELET_ASSEMBLER_H_
 
 #include <rqt_gui_cpp/plugin.h>
+#include <ros/package.h>
+#include <string>
+#include <vector>
+#include <utility>
 
 #include <ui_rqt_nodelet_assembler.h>
 
-#include <QSet>
+#include <QStringList>
 #include <QString>
 #include <QWidget>
 
@@ -57,9 +61,8 @@ class NodeletAssembler : public rqt_gui_cpp::Plugin
     virtual void restoreSettings(const qt_gui_cpp::Settings& plugin_settings, const qt_gui_cpp::Settings& instance_settings);
 
     protected:
-    virtual QSet<QString> getPackages() const;
-    virtual QSet<QString> getNodelets() const;
-    virtual void updatePackagesList();
+    virtual QStringList getNodeletsFromPlugin() const;
+    virtual void updatePluginList();
     virtual void updateNodeletsList();
 
     protected slots:

@@ -20,7 +20,7 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QComboBox" name="package_combo_box">
+      <widget class="QComboBox" name="plugin_combo_box">
        <property name="minimumSize">
         <size>
          <width>180</width>
@@ -28,7 +28,7 @@
         </size>
        </property>
        <property name="toolTip">
-        <string>Select a package containing nodelets</string>
+        <string>Select a plugin providing nodelets</string>
        </property>
        <property name="sizeAdjustPolicy">
         <enum>QComboBox::AdjustToContents</enum>

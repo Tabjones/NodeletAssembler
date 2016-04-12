@@ -35,7 +35,11 @@
 
 #include <rqt_gui_cpp/plugin.h>
 
-// #include <ui_rqt_nodelet_assembler.h>
+#include <ui_rqt_nodelet_assembler.h>
+
+#include <QSet>
+#include <QString>
+#include <QWidget>
 
 namespace rqt_nodelet_assembler
 {
@@ -43,13 +47,30 @@ namespace rqt_nodelet_assembler
 class NodeletAssembler : public rqt_gui_cpp::Plugin
 {
     Q_OBJECT
+
+    //Methods
     public:
     NodeletAssembler();
-
     virtual void initPlugin(qt_gui_cpp::PluginContext& context);
     virtual void shutdownPlugin();
     virtual void saveSettings(qt_gui_cpp::Settings& plugin_settings, qt_gui_cpp::Settings& instance_settings) const;
     virtual void restoreSettings(const qt_gui_cpp::Settings& plugin_settings, const qt_gui_cpp::Settings& instance_settings);
+
+    protected:
+    virtual QSet<QString> getPackages() const;
+    virtual QSet<QString> getNodelets() const;
+    virtual void updatePackagesList();
+    virtual void updateNodeletsList();
+
+    protected slots:
+    virtual void onRefresh();
+    virtual void onPackageChanged(int index);
+    virtual void onNodeletChanged(int index);
+
+    //Members
+    protected:
+    Ui::NodeletAssemblerWidget ui_;
+    QWidget* widget_;
 };
 }//End namespace
 #endif //_INCL_RQT_NODELET_ASSEMBLER_H_

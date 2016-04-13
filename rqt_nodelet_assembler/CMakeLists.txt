@@ -10,10 +10,13 @@ find_package(catkin REQUIRED COMPONENTS
   rqt_gui
   rqt_gui_cpp
   roslib
+  cmake_modules
 )
 
 ## System dependencies are found with CMake's conventions
 find_package(Qt4 REQUIRED COMPONENTS QtCore QtGui)
+
+find_package(TinyXML REQUIRED)
 
 include (${QT_USE_FILE})
 
@@ -61,13 +64,16 @@ qt4_wrap_ui(rqt_nodelet_assembler_UI_H ${rqt_nodelet_assembler_UI})
 include_directories(
   ${catkin_INCLUDE_DIRS}
   ${rqt_nodelet_assembler_INCLUDE_DIRECTORIES}
+  ${TinyXML_INCLUDE_DIRS}
 )
 
 add_library(${PROJECT_NAME}
     ${rqt_nodelet_assembler_SRC} ${rqt_nodelet_assembler_MOC} ${rqt_nodelet_assembler_UI_H}
 )
 target_link_libraries(${PROJECT_NAME}
-    ${catkin_LIBRARIES} ${QT_QTCORE_LIBRARY} ${QT_QTGUI_LIBRARY}
+    ${catkin_LIBRARIES}
+    ${QT_QTCORE_LIBRARY} ${QT_QTGUI_LIBRARY}
+    ${TinyXML_LIBRARIES}
 )
 find_package(class_loader)
 class_loader_hide_library_symbols(${PROJECT_NAME})

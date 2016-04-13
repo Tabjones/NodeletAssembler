@@ -56,6 +56,7 @@ namespace rqt_nodelet_assembler
         context.addWidget(widget_);
         //update packages and nodelets
         updatePluginList();
+        ui_.plugin_combo_box->setCurrentIndex(ui_.plugin_combo_box->findText(""));
     }
 
     void
@@ -98,7 +99,7 @@ namespace rqt_nodelet_assembler
     void
     NodeletAssembler::updateNodeletsList()
     {
-        //TODO
+        ui_.nodelet_combo_box->clear();
     }
 
     void

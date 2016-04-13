@@ -33,6 +33,7 @@
 #include <rqt_nodelet_assembler/rqt_nodelet_assembler.h>
 #include <pluginlib/class_list_macros.h>
 #include <QFileDialog>
+#include <boost/filesystem.hpp>
 
 namespace rqt_nodelet_assembler
 {
@@ -57,6 +58,9 @@ namespace rqt_nodelet_assembler
         //update packages and nodelets
         updatePluginList();
         ui_.plugin_combo_box->setCurrentIndex(ui_.plugin_combo_box->findText(""));
+        connect(ui_.plugin_combo_box, SIGNAL(currentIndexChanged(int)), this, SLOT(onPluginChanged(int)));
+        ui_.refresh_push_button->setIcon(QIcon::fromTheme("view-refresh"));
+        connect(ui_.refresh_push_button, SIGNAL(pressed()), this, SLOT(onRefresh()));
     }
 
     void
@@ -77,9 +81,26 @@ namespace rqt_nodelet_assembler
     }
 
     QStringList
-    NodeletAssembler::getNodeletsFromPlugin() const
+    NodeletAssembler::getNodeletsFromPlugin(std::string plugin)
     {
-        //TODO
+        QStringList nodelets;
+        nodelets_descriptions.clear();
+        if (current_plugin.LoadFile(plugin)){
+            // current_plugin.Print();
+            TiXmlHandle handle(&current_plugin);
+            TiXmlElement* pLibTag = handle.FirstChild("library").ToElement();
+            for (pLibTag; pLibTag; pLibTag=pLibTag->NextSiblingElement())
+            {
+                TiXmlElement* pTag = pLibTag->FirstChild("class")->ToElement();
+                for (pTag; pTag; pTag=pTag->NextSiblingElement())
+                {
+                    std::string desc = pTag->FirstChild("description")->ToElement()->GetText();
+                    nodelets_descriptions.push_back(desc);
+                    nodelets.append( pTag->Attribute("name") );
+                }
+            }
+        }
+        return nodelets;
     }
 
     void
@@ -94,24 +115,35 @@ namespace rqt_nodelet_assembler
         for (size_t i=0; i<vp.size(); ++i)
             plist.append(vp[i].c_str());
         ui_.plugin_combo_box->insertItems(0, plist);
+        ui_.plugin_combo_box->setCurrentIndex(ui_.plugin_combo_box->findText(""));
     }
 
     void
-    NodeletAssembler::updateNodeletsList()
+    NodeletAssembler::updateNodeletsList(std::string plugin)
     {
         ui_.nodelet_combo_box->clear();
+        QStringList nlist = getNodeletsFromPlugin(plugin);
+        ui_.nodelet_combo_box->insertItems(0, nlist);
+        ui_.nodelet_combo_box->setCurrentIndex(ui_.nodelet_combo_box->findText(""));
     }
 
     void
     NodeletAssembler::onRefresh()
     {
-        //TODO
+        updatePluginList();
+        ui_.plugin_combo_box->setCurrentIndex(ui_.plugin_combo_box->findText(""));
+        // ui_.nodelet_combo_box->clear();
     }
 
     void
-    NodeletAssembler::onPackageChanged(int index)
+    NodeletAssembler::onPluginChanged(int index)
     {
-        //TODO
+        if (index == -1)
+            return;
+        std::string plugin_path = ui_.plugin_combo_box->itemText(index).toStdString();
+        boost::filesystem::path pp(plugin_path);
+        if (boost::filesystem::exists(pp) && boost::filesystem::is_regular_file(pp))
+            updateNodeletsList(plugin_path);
     }
 
     void

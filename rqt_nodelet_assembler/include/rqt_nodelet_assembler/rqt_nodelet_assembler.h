@@ -45,6 +45,8 @@
 #include <QString>
 #include <QWidget>
 
+#include <tinyxml.h>
+
 namespace rqt_nodelet_assembler
 {
 
@@ -61,19 +63,23 @@ class NodeletAssembler : public rqt_gui_cpp::Plugin
     virtual void restoreSettings(const qt_gui_cpp::Settings& plugin_settings, const qt_gui_cpp::Settings& instance_settings);
 
     protected:
-    virtual QStringList getNodeletsFromPlugin() const;
+    virtual QStringList getNodeletsFromPlugin(std::string plugin);
     virtual void updatePluginList();
-    virtual void updateNodeletsList();
+    virtual void updateNodeletsList(std::string plugin);
 
     protected slots:
     virtual void onRefresh();
-    virtual void onPackageChanged(int index);
+    virtual void onPluginChanged(int index);
     virtual void onNodeletChanged(int index);
 
     //Members
     protected:
     Ui::NodeletAssemblerWidget ui_;
     QWidget* widget_;
+
+    private:
+    TiXmlDocument current_plugin;
+    ros::package::V_string nodelets_descriptions;
 };
 }//End namespace
 #endif //_INCL_RQT_NODELET_ASSEMBLER_H_

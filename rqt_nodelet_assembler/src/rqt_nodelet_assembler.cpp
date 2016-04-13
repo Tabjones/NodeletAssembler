@@ -57,10 +57,12 @@ namespace rqt_nodelet_assembler
         context.addWidget(widget_);
         //update packages and nodelets
         updatePluginList();
-        ui_.plugin_combo_box->setCurrentIndex(ui_.plugin_combo_box->findText(""));
+        ui_.name->setText("Nodelet");
+        ui_.description->setText("Description");
         connect(ui_.plugin_combo_box, SIGNAL(currentIndexChanged(int)), this, SLOT(onPluginChanged(int)));
         ui_.refresh_push_button->setIcon(QIcon::fromTheme("view-refresh"));
         connect(ui_.refresh_push_button, SIGNAL(pressed()), this, SLOT(onRefresh()));
+        connect(ui_.nodelet_combo_box, SIGNAL(currentIndexChanged(int)), this, SLOT(onNodeletChanged(int)));
     }
 
     void
@@ -115,7 +117,6 @@ namespace rqt_nodelet_assembler
         for (size_t i=0; i<vp.size(); ++i)
             plist.append(vp[i].c_str());
         ui_.plugin_combo_box->insertItems(0, plist);
-        ui_.plugin_combo_box->setCurrentIndex(ui_.plugin_combo_box->findText(""));
     }
 
     void
@@ -124,15 +125,15 @@ namespace rqt_nodelet_assembler
         ui_.nodelet_combo_box->clear();
         QStringList nlist = getNodeletsFromPlugin(plugin);
         ui_.nodelet_combo_box->insertItems(0, nlist);
-        ui_.nodelet_combo_box->setCurrentIndex(ui_.nodelet_combo_box->findText(""));
     }
 
     void
     NodeletAssembler::onRefresh()
     {
         updatePluginList();
-        ui_.plugin_combo_box->setCurrentIndex(ui_.plugin_combo_box->findText(""));
-        // ui_.nodelet_combo_box->clear();
+        ui_.nodelet_frame->setDisabled(true);
+        ui_.name->setText("Nodelet");
+        ui_.description->setText("Description");
     }
 
     void
@@ -149,7 +150,12 @@ namespace rqt_nodelet_assembler
     void
     NodeletAssembler::onNodeletChanged(int index)
     {
-        //TODO
+        if (index == -1)
+            return;
+        ui_.nodelet_frame->setDisabled(false);
+        std::string name = ui_.nodelet_combo_box->itemText(index).toStdString();
+        ui_.name->setText(name.c_str());
+        ui_.description->setText(nodelets_descriptions[index].c_str());
     }
 }//End namespace
 

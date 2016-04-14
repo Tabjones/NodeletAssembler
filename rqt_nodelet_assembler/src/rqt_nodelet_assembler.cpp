@@ -33,6 +33,7 @@
 #include <rqt_nodelet_assembler/rqt_nodelet_assembler.h>
 #include <pluginlib/class_list_macros.h>
 #include <QFileDialog>
+#include <QInputDialog>
 #include <boost/filesystem.hpp>
 
 namespace rqt_nodelet_assembler
@@ -63,6 +64,11 @@ namespace rqt_nodelet_assembler
         ui_.refresh_push_button->setIcon(QIcon::fromTheme("view-refresh"));
         connect(ui_.refresh_push_button, SIGNAL(pressed()), this, SLOT(onRefresh()));
         connect(ui_.nodelet_combo_box, SIGNAL(currentIndexChanged(int)), this, SLOT(onNodeletChanged(int)));
+        connect(ui_.add_manager_push_button, SIGNAL(pressed()), this, SLOT(onAddManager()));
+        connect(ui_.add_nodelet_push_button, SIGNAL(pressed()), this, SLOT(onAddNodelet()));
+        connect(ui_.remove_push_button, SIGNAL(pressed()), this, SLOT(onRemoveNodelet()));
+        connect(ui_.clear_push_button, SIGNAL(pressed()), this, SLOT(onClear()));
+        connect(ui_.write_launch_push_button, SIGNAL(pressed()), this, SLOT(onWriteLaunch()));
     }
 
     void
@@ -87,8 +93,9 @@ namespace rqt_nodelet_assembler
     {
         QStringList nodelets;
         nodelets_descriptions.clear();
-        if (current_plugin.LoadFile(plugin)){
-            TiXmlHandle handle(&current_plugin);
+        TiXmlDocument doc_plugin;
+        if (doc_plugin.LoadFile(plugin)){
+            TiXmlHandle handle(&doc_plugin);
             TiXmlElement* pLibTag = handle.FirstChild("library").ToElement();
             for (pLibTag; pLibTag; pLibTag=pLibTag->NextSiblingElement())
             {
@@ -136,6 +143,18 @@ namespace rqt_nodelet_assembler
     }
 
     void
+    NodeletAssembler::onAddManager()
+    {
+        bool ok;
+        QString name = QInputDialog::getText(widget_, tr("QInputDialog::getText()"),
+                                         tr("Manager Name:"), QLineEdit::Normal,
+                                         "nodelet_manager", &ok);
+        if (!ok || name.isEmpty())
+            return;
+
+    }
+
+    void
     NodeletAssembler::onPluginChanged(int index)
     {
         if (index == -1)
@@ -155,6 +174,30 @@ namespace rqt_nodelet_assembler
         std::string name = ui_.nodelet_combo_box->itemText(index).toStdString();
         ui_.name_f->setText(name.c_str());
         ui_.description_f->setText(nodelets_descriptions[index].c_str());
+    }
+
+    void
+    NodeletAssembler::onAddNodelet()
+    {
+        //TODO
+    }
+
+    void
+    NodeletAssembler::onRemoveNodelet()
+    {
+        //TODO
+    }
+
+    void
+    NodeletAssembler::onClear()
+    {
+        //TODO
+    }
+
+    void
+    NodeletAssembler::onWriteLaunch()
+    {
+        //TODO
     }
 }//End namespace
 

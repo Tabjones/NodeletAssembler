@@ -69,8 +69,13 @@ class NodeletAssembler : public rqt_gui_cpp::Plugin
 
     protected slots:
     virtual void onRefresh();
+    virtual void onAddManager();
     virtual void onPluginChanged(int index);
     virtual void onNodeletChanged(int index);
+    virtual void onAddNodelet();
+    virtual void onRemoveNodelet();
+    virtual void onClear();
+    virtual void onWriteLaunch();
 
     //Members
     protected:
@@ -78,7 +83,6 @@ class NodeletAssembler : public rqt_gui_cpp::Plugin
     QWidget* widget_;
 
     private:
-    TiXmlDocument current_plugin;
     ros::package::V_string nodelets_descriptions;
 };
 }//End namespace

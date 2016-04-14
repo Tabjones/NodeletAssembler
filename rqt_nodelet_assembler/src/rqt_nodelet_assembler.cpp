@@ -57,8 +57,8 @@ namespace rqt_nodelet_assembler
         context.addWidget(widget_);
         //update packages and nodelets
         updatePluginList();
-        ui_.name->setText("Nodelet");
-        ui_.description->setText("Description");
+        ui_.name_f->setText("Nodelet");
+        ui_.description_f->setText("Description");
         connect(ui_.plugin_combo_box, SIGNAL(currentIndexChanged(int)), this, SLOT(onPluginChanged(int)));
         ui_.refresh_push_button->setIcon(QIcon::fromTheme("view-refresh"));
         connect(ui_.refresh_push_button, SIGNAL(pressed()), this, SLOT(onRefresh()));
@@ -88,7 +88,6 @@ namespace rqt_nodelet_assembler
         QStringList nodelets;
         nodelets_descriptions.clear();
         if (current_plugin.LoadFile(plugin)){
-            // current_plugin.Print();
             TiXmlHandle handle(&current_plugin);
             TiXmlElement* pLibTag = handle.FirstChild("library").ToElement();
             for (pLibTag; pLibTag; pLibTag=pLibTag->NextSiblingElement())
@@ -132,8 +131,8 @@ namespace rqt_nodelet_assembler
     {
         updatePluginList();
         ui_.nodelet_frame->setDisabled(true);
-        ui_.name->setText("Nodelet");
-        ui_.description->setText("Description");
+        ui_.name_f->setText("Nodelet");
+        ui_.description_f->setText("Description");
     }
 
     void
@@ -154,8 +153,8 @@ namespace rqt_nodelet_assembler
             return;
         ui_.nodelet_frame->setDisabled(false);
         std::string name = ui_.nodelet_combo_box->itemText(index).toStdString();
-        ui_.name->setText(name.c_str());
-        ui_.description->setText(nodelets_descriptions[index].c_str());
+        ui_.name_f->setText(name.c_str());
+        ui_.description_f->setText(nodelets_descriptions[index].c_str());
     }
 }//End namespace
 

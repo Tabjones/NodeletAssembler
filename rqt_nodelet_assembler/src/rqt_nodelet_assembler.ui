@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>492</width>
-    <height>403</height>
+    <width>597</width>
+    <height>356</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -71,129 +71,104 @@
        </property>
       </widget>
      </item>
-    </layout>
-   </item>
-   <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0">
-     <property name="spacing">
-      <number>0</number>
-     </property>
      <item>
-      <widget class="QFrame" name="nodelet_frame">
-       <property name="enabled">
-        <bool>false</bool>
+      <widget class="QPushButton" name="add_manager_push_button">
+       <property name="text">
+        <string>Add Manager ...</string>
        </property>
-       <property name="minimumSize">
-        <size>
-         <width>200</width>
-         <height>100</height>
-        </size>
-       </property>
-       <property name="frameShape">
-        <enum>QFrame::Box</enum>
-       </property>
-       <property name="frameShadow">
-        <enum>QFrame::Raised</enum>
-       </property>
-       <property name="lineWidth">
-        <number>2</number>
-       </property>
-       <layout class="QGridLayout" name="gridLayout">
-        <item row="2" column="0">
-         <widget class="QLabel" name="description">
-          <property name="text">
-           <string>TextLabel</string>
-          </property>
-          <property name="scaledContents">
-           <bool>true</bool>
-          </property>
-          <property name="wordWrap">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="name">
-          <property name="maximumSize">
-           <size>
-            <width>16777215</width>
-            <height>60</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>TextLabel</string>
-          </property>
-          <property name="scaledContents">
-           <bool>true</bool>
-          </property>
-          <property name="wordWrap">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="Line" name="line">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-       </layout>
       </widget>
      </item>
     </layout>
    </item>
    <item>
-    <widget class="QTreeWidget" name="treeWidget">
-     <property name="dragEnabled">
-      <bool>true</bool>
+    <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="">
+     <property name="spacing">
+      <number>0</number>
      </property>
-     <property name="dragDropOverwriteMode">
-      <bool>true</bool>
+    </layout>
+   </item>
+   <item>
+    <widget class="QFrame" name="nodelet_frame">
+     <property name="enabled">
+      <bool>false</bool>
      </property>
-     <property name="dragDropMode">
-      <enum>QAbstractItemView::DragDrop</enum>
+     <property name="minimumSize">
+      <size>
+       <width>200</width>
+       <height>100</height>
+      </size>
      </property>
-     <property name="defaultDropAction">
-      <enum>Qt::MoveAction</enum>
+     <property name="frameShape">
+      <enum>QFrame::Box</enum>
      </property>
-     <property name="selectionBehavior">
-      <enum>QAbstractItemView::SelectItems</enum>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
      </property>
-     <property name="animated">
-      <bool>true</bool>
+     <property name="lineWidth">
+      <number>2</number>
      </property>
-     <property name="wordWrap">
-      <bool>true</bool>
-     </property>
-     <attribute name="headerCascadingSectionResizes">
-      <bool>true</bool>
-     </attribute>
-     <column>
-      <property name="text">
-       <string>????</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>thefuck</string>
-      </property>
-     </column>
-     <item>
-      <property name="text">
-       <string>prova</string>
-      </property>
-      <item>
-       <property name="text">
-        <string>lol</string>
-       </property>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="0">
+       <widget class="QLabel" name="name_f">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>60</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+        <property name="scaledContents">
+         <bool>true</bool>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+       </widget>
       </item>
-      <item>
-       <property name="text">
-        <string>prova 2</string>
-       </property>
+      <item row="0" column="1" rowspan="2">
+       <widget class="QTreeWidget" name="nodelet_tree">
+        <property name="sizeAdjustPolicy">
+         <enum>QAbstractScrollArea::AdjustIgnored</enum>
+        </property>
+        <property name="dragDropMode">
+         <enum>QAbstractItemView::DragDrop</enum>
+        </property>
+        <property name="defaultDropAction">
+         <enum>Qt::MoveAction</enum>
+        </property>
+        <property name="animated">
+         <bool>true</bool>
+        </property>
+        <column>
+         <property name="text">
+          <string notr="true">1</string>
+         </property>
+        </column>
+       </widget>
       </item>
-     </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="description_f">
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+        <property name="scaledContents">
+         <bool>true</bool>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0" colspan="2">
+       <widget class="Line" name="line_sep">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
    <item>
